@@ -1,0 +1,35 @@
+version: '3'
+services:
+  frontend:
+    restart: always
+    build:
+      context: ./react-frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - software-engineer
+
+  backend:
+    restart: always
+    build:
+      context: ./nodejs-backend
+    ports:
+      - "9000:9000"
+    networks:
+      - software-engineer
+
+  mysql:
+    restart: always
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: prisma_db
+    ports:
+      - "3306:3306"
+    networks:
+      - software-engineer
+
+#bridging all the container together 
+networks:
+  software-engineer:
+    driver: bridge
