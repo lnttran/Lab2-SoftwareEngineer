@@ -13,13 +13,13 @@ RUN npm install
 # Copy the rest of the application code to the working directory
 COPY . .
 
+RUN npx prisma generate
+
 # Build the TypeScript application
 RUN npm run build
 
 # Expose a port (change this if your app uses a different port)
 EXPOSE 9000
-
-RUN npx prisma generate
 
 # Copy the entry point script into the container
 COPY entrypoint.sh /entrypoint.sh
